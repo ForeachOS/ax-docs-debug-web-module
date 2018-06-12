@@ -1,0 +1,5 @@
+name: debug-web-module
+title: "Module: Debug Web"
+version: 2.0.0
+nav:
+- modules/ROOT/nav.adoc

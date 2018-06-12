@@ -16,7 +16,7 @@ The path should not contain the root path prefix.
 
 [#security]
 == Securing debug web
-By default the DebugWebModule takes care of securing the debug endpoints if {spring-security-module-url}[SpringSecurityModule] is active.
+By default the DebugWebModule takes care of securing the debug endpoints if {url-SpringSecurityModule}[SpringSecurityModule] is active.
 The username and password can be configured with the `debugWebModule.security.username` and `debugWebModule.security.password` property.
 A whiletist of IP addresses can be configured using the `debugWebModule.security.ip-addresses` property.
 This is a comma separated list of IP addresses or sub-nets.

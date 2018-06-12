@@ -1,0 +1,25 @@
+= Default debug controllers
+
+Out of the box DebugWebModule provides some default debug controllers.  These are all available through the top menu.
+
+== Section: Servlet context
+Lists the servlets and filters registered on the servlet context.
+
+== Section: Across
+.Context browser
+Allows you to introspect the running `AcrossContext`.
+You can navigate the entire `ApplicationContext` hierarchy, see the modules registered in the Across context along with the beans they created (and expose) as well as the configuration properties visible within each module.
+
+As some properties contain sensitive data (for example passwords), it is possible to mask property values based on the property name.
+By default all property names containing *password* or *secret* will have their values masked.
+Additional rules can be configured with *debugWebModule.properties.masks* or *debugWebModule.properties.masked-properties*.
+
+.AcrossWebModule: Handlers and Interceptors
+_Handlers_ lists the different request mapping endoints grouped by their handler mappings.  _Interceptors_ lists the
+mapped and unmapped interceptors that apply to a particular handler mapping.
+
+== Section: DataSources
+Lists database drivers and registered datasources with some datasource statistics.
+
+== Section: Threads and stack
+Lists the current threads with their stack trace.

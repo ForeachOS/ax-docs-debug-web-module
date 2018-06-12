@@ -1,0 +1,8 @@
+= 2.x.x release notes
+
+[#2-0-0]
+== 2.0.0.RELEASE
+
+* *Requires Across 2.0.0.*
+* Context browser now shows event handler methods grouped by event instead of bean instance.
+* The root path is now by default secured, it can be disabled with the `debugWebModule.security.enabled=false` property.

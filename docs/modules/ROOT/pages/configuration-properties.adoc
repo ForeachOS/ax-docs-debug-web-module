@@ -1,0 +1,55 @@
+= Module settings
+
+All properties start with the *debugWebModule.* prefix.
+
+|===
+|Property |Type |Description |Default
+
+|root-path
+|`String`
+|Root path for all debug web controllers.  All mappings will be relative to this path.
+|/debug
+
+|dashboard
+|`String`
+|Path within the debug web context for the initial dashboard.
+|/
+
+|properties.masks
+|`String[]`
+|Set regular expressions for all property names that should be masked.
+|`.\*password.*`, `.\*secret.*`
+
+|properties.masked-properties
+|`String[]`
+|Set explicit property names that should be masked.
+|
+
+|security.enabled
+|`String`
+|Should the root path be secured with Basic Authentication.
+|`true`
+
+|security.username
+|`String`
+|The username to use for Basic Authentication to access the root path. +
+Leave blank to disable the in-memory user.
+|debug
+
+|security.password
+|`String`
+|The password to use for Basic Authentication to access the root path.
+|
+
+|security.ip-addresses
+|`String`
+|The comma separated list of IP addresses that will always have access to the root path, without needing Basic Authentication.
+|
+
+|security.authority
+|`String`
+|The authority that an authenticated principal should have for accessing debug web. +
+Useful if you want to share a global security configuration.
+|ROLE_DEBUG_USER
+
+|===

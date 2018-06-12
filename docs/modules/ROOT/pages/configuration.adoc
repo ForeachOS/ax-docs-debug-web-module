@@ -1,0 +1,68 @@
+= Configuring DebugWebModule
+
+[[configure-root-path]]
+== Root path
+
+The root path is configured by setting the `debugWebModule.root-path` property.
+This can only be done when configuring the `AcrossContext`, before it has bootstrapped.
+If no custom root path is configured, the default is */debug*.
+
+== Dashboard (landing page)
+
+Pointing your web browser at the root path within your application will open DebugWebModule on the dashboard.
+By default the dashboard has no content other than the top menu.
+If you would like a particular controller to open you can set another relative path on the *debugWebModule.dashboard* property.
+The path should not contain the root path prefix.
+
+[#security]
+== Securing debug web
+By default the DebugWebModule takes care of securing the debug endpoints if {spring-security-module-url}[SpringSecurityModule] is active.
+The username and password can be configured with the `debugWebModule.security.username` and `debugWebModule.security.password` property.
+A whiletist of IP addresses can be configured using the `debugWebModule.security.ip-addresses` property.
+This is a comma separated list of IP addresses or sub-nets.
+These IP addresses will *always* have access to the root path.
+
+Default security can be disabled by setting `debugWebModule.security.enabled` to `false`.
+Securing can then easily be done on a web-server level or using custom Spring security configuration.
+
+.Example securing debug web with Spring security
+[source,java,indent=0]
+[subs="verbatim,quotes,attributes"]
+----
+@Configuration
+public class DebugWebSecurityConfiguration extends SpringSecurityWebConfigurerAdapter
+{
+	@Autowired
+	private DebugWeb debugWeb;
+
+	@Override
+	public void configure( AuthenticationManagerBuilder auth ) throws Exception {
+		auth.inMemoryAuthentication()
+			.withUser( "debug" )
+			.password( "debug" )
+			.roles( "DEBUG_USER" );
+	}
+
+	@Override
+	public void configure( HttpSecurity http ) throws Exception {
+		http.antMatcher( debugWeb.path( "/**" ) )
+		    .authorizeRequests().anyRequest().hasRole( "DEBUG_USER" )
+		    .and()
+		    .formLogin().disable()
+		    .httpBasic()
+		    .and()
+		    .sessionManagement().sessionCreationPolicy( SessionCreationPolicy.STATELESS )
+		    .and()
+		    .csrf().disable();
+	}
+}
+----
+
+[#layout-template]
+== Customizing the layout template
+DebugWebModule uses a default Thymeleaf layout template that builds the top menu and renders HTML for Bootstrap CSS and
+JQuery.  If you wish to replace the default layout, you can wire the `debugWebTemplateRegistry`, register
+your own `WebTemplateProcessor` and set it as the default template for all debug web controllers.
+Alternatively you can specify any registered `WebTemplateProcessor` by name, using the `@Template` annotation on specific debug web controllers.
+
+NOTE: Because DebugWebModule uses its own `WebTemplateRegistry`, only templates registered explicitly on the `debugWebTemplateRegistry` bean will be available.

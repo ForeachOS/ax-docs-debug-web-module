@@ -5,3 +5,5 @@
 
 * *Requires Across 5.0.0.*
 * Spring upgrade related changes
+* added new _Security filters_ debug controller in the _Across_ section
+** allows the user to see which security filter chains have been registered in SpringSecurityModule

@@ -18,6 +18,10 @@ Additional rules can be configured with *debugWebModule.properties.masks* or *de
 _Handlers_ lists the different request mapping endoints grouped by their handler mappings.  _Interceptors_ lists the
 mapped and unmapped interceptors that apply to a particular handler mapping.
 
+.Security: Security filters
+If SpringSecurityModule is present, this page will list the different `SecurityFilterChains` in order.
+When possible, the `RequestMatcher` will be written out, and the name and number of actual filters can be shown.
+
 == Section: DataSources
 Lists database drivers and registered datasources with some datasource statistics.
 

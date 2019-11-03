@@ -10,7 +10,6 @@ will be picked up by the DebugWebModule and will have its mappings prefixed with
 [subs="verbatim,quotes,attributes"]
 ----
 @DebugWebController
-@AcrossDepends(required = "DebugWebModule")
 public class DebugEhcacheController
 {
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
@@ -48,7 +47,6 @@ automatically be added to the output by the layout template.
 [subs="verbatim,quotes,attributes"]
 ----
 @DebugWebController
-@AcrossDepends(required = "DebugWebModule")
 public class DebugEhcacheController
 {
 	@ModelAttribute
@@ -68,15 +66,14 @@ The default layout template builds and renders a top menu.  This menu is built b
 `AcrossEventHandler` - and all controllers are event handlers by default - can listen for this event and modify the menu.
 The menu is built using a `PathBasedMenuBuilder`, allowing the entire menu hierarchy to be specified using a path structure.
 
-NOTE: By default the menu item path is also used as the url for the menu endpoint.  All menu item urls will be processed by
-the debug web `WebAppPathResolver` and any relative path will be prefixed with the configured root path.
+NOTE: By default the menu item path is also used as the url for the menu endpoint.
+All menu item urls will be processed by the debug web `WebAppPathResolver` and any relative path will be prefixed with the configured root path.
 
 .Example of registering a new top-level menu item pointing to /ROOT_PATH/test
 [source,java,indent=0]
 [subs="verbatim,quotes,attributes"]
 ----
 @DebugWebController
-@AcrossDepends(required = "DebugWebModule")
 public class DebugEhcacheController
 {
 	@Event
@@ -92,10 +89,9 @@ public class DebugEhcacheController
 ----
 
 == Linking to debug web controllers
-The actual URL endpoint of debug web controllers depends on the application-specific configured root path.  When implementing
- custom debug web controllers you can ensure your relative links point to the correct controller by running them through
- the `PrefixingPathContext`.  DebugWebModule has registered a prefixer named _debugWeb_, this prefixer can be used to
- correctly point to a debug web controller from any other controller.
+The actual URL endpoint of debug web controllers depends on the application-specific configured root path.
+When implementing custom debug web controllers you can ensure your relative links point to the correct controller by running them through the `PrefixingPathContext`.
+DebugWebModule has registered a prefixer named _debugWeb_, this prefixer can be used to correctly point to a debug web controller from any other controller.
 
 .Relative links from Thymeleaf views
 [source,xml,indent=0]
@@ -109,7 +105,7 @@ The actual URL endpoint of debug web controllers depends on the application-spec
 <body th:fragment="content">
 	Relative to debug web root path:
 	* <a th:href="@{#webapp.path('/test')}">when rendered from a debug web controller</a>
-	* <a th:href="@{#webapp.path('@debugWeb:/test')}">always</a>
+	* <a th:href="@{'@debugWeb:/test'}">always</a>
 </body>
 </html>
 ----
@@ -121,7 +117,6 @@ In code the `DebugWeb` bean - implementation of the `PrefixingPathContext` - can
 [subs="verbatim,quotes,attributes"]
 ----
 @DebugWebController
-@AcrossDepends(required = "DebugWebModule")
 public class DebugEhcacheController
 {
 	@Autowired
@@ -135,5 +130,4 @@ public class DebugEhcacheController
 ----
 
 == Adding custom interceptors
-If you want to add interceptors only to debug web controllers, you can register them using an instance of
-  `DebugWebConfigurerAdapter` or any custom `PrefixingHandlerMappingConfigurer` that supports the _DebugWebModule_ mapper.
+If you want to add interceptors only to debug web controllers, you can register them using an instance of `DebugWebConfigurerAdapter` or any custom `PrefixingHandlerMappingConfigurer` that supports the _DebugWebModule_ mapper.

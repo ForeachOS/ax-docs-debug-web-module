@@ -3,7 +3,14 @@
 [#3-0-0]
 == 3.0.0.RELEASE
 
-* *Requires Across 5.0.0.*
-* Spring upgrade related changes
-* added new _Security filters_ debug controller in the _Across_ section
+This release requires Across 5.0.0.
+
+* styling of several pages has been updated
+* `@DebugWebController` now automatically includes `@ConditionalOnAcrossModule(DebugWebModule.NAME)`
+* added a new _Security filters_ debug controller in the _Across_ section
 ** allows the user to see which security filter chains have been registered in SpringSecurityModule
+* added a new _Cache browser_ section which allows introspection of registered Spring `CacheManager` beans
+** allows the user to see which `CacheManager` beans and `Cache` implementations are registered
+** existence of a `Cache` should always be available, additional statistics depend on the native cache
+** out of the box the `NoopCache` and `ConcurrentMapCache` return as many details as possible
+** additional implementations can be added via the `DebugCacheStatistics` event

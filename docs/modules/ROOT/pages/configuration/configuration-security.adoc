@@ -1,0 +1,43 @@
+= Adding security
+
+By default the DebugWebModule takes care of securing the debug endpoints if {url-SpringSecurityModule}[SpringSecurityModule] is active.
+The username and password can be configured with the `debugWebModule.security.username` and `debugWebModule.security.password` property.
+A whiletist of IP addresses can be configured using the `debugWebModule.security.ip-addresses` property.
+This is a comma separated list of IP addresses or sub-nets.
+These IP addresses will *always* have access to the root path.
+
+Default security can be disabled by setting `debugWebModule.security.enabled` to `false`.
+Securing can then easily be done on a web-server level or using custom Spring security configuration.
+
+.Example securing debug web with Spring security
+[source,java,indent=0]
+[subs="verbatim,quotes,attributes"]
+----
+@Configuration
+public class DebugWebSecurityConfiguration extends SpringSecurityWebConfigurerAdapter
+{
+	@Autowired
+	private DebugWeb debugWeb;
+
+	@Override
+	public void configure( AuthenticationManagerBuilder auth ) throws Exception {
+		auth.inMemoryAuthentication()
+			.withUser( "debug" )
+			.password( "debug" )
+			.roles( "DEBUG_USER" );
+	}
+
+	@Override
+	public void configure( HttpSecurity http ) throws Exception {
+		http.antMatcher( debugWeb.path( "/**" ) )
+		    .authorizeRequests().anyRequest().hasRole( "DEBUG_USER" )
+		    .and()
+		    .formLogin().disable()
+		    .httpBasic()
+		    .and()
+		    .sessionManagement().sessionCreationPolicy( SessionCreationPolicy.STATELESS )
+		    .and()
+		    .csrf().disable();
+	}
+}
+----

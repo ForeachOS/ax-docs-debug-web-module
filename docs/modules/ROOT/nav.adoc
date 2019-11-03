@@ -7,8 +7,8 @@
 * xref:configuration-properties.adoc[Configuration properties]
 
 * xref:configuration.adoc[Configuring Debug Web]
-** xref:configuration.adoc#security[Adding security]
-** xref:configuration.adoc#layout-template[Custom layout template]
+** xref:configuration/configuration-security.adoc[Adding security]
+** xref:configuration/configuration-layout.adoc[Custom layout template]
 
 * xref:default-controllers.adoc[Default debug controllers]
 

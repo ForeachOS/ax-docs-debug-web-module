@@ -18,6 +18,26 @@ Additional rules can be configured with *debugWebModule.properties.masks* or *de
 _Handlers_ lists the different request mapping endoints grouped by their handler mappings.  _Interceptors_ lists the
 mapped and unmapped interceptors that apply to a particular handler mapping.
 
+.Security: Security filters
+If SpringSecurityModule is present, this page will list the different `SecurityFilterChains` in order.
+When possible, the `RequestMatcher` will be written out, and the name and number of actual filters can be shown.
+
+== Section: Cache browser
+
+Allows the user to see which `CacheManager` beans and `Cache` implementations are registered in the AcrossContext.
+An `AcrossCompositeCacheManager` should always be available but additional `CacheManager` beans from parent contexts or modules will also be detected.
+
+Apart from seeing the cache and possible details, clearing caches is also supported.
+
+.Cache support
+The existence of a `Cache` can always be detected, but details like number of items, hits or browsing the entries are implementation dependent.
+
+DebugWebModule provides out of the box support for the `NoopCache` and `ConcurrentMapCache`.
+
+Support for specific implementations can be added by listening to the `DebugCacheStatistics` event.
+This event is published by the cache controller whenever the details for a cache are requested.
+For example, xref:ehcache-module::index.adoc[EhcacheModule] adds support for the `EhCacheCache` implementation.
+
 == Section: DataSources
 Lists database drivers and registered datasources with some datasource statistics.
 

@@ -1,0 +1,8 @@
+= Customizing the layout template
+
+DebugWebModule uses a default Thymeleaf layout template that builds the top menu and renders HTML for Bootstrap CSS and
+JQuery.  If you wish to replace the default layout, you can wire the `debugWebTemplateRegistry`, register
+your own `WebTemplateProcessor` and set it as the default template for all debug web controllers.
+Alternatively you can specify any registered `WebTemplateProcessor` by name, using the `@Template` annotation on specific debug web controllers.
+
+NOTE: Because DebugWebModule uses its own `WebTemplateRegistry`, only templates registered explicitly on the `debugWebTemplateRegistry` bean will be available.

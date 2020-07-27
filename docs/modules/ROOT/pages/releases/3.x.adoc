@@ -3,7 +3,7 @@
 [#3-0-0]
 == 3.0.0.RELEASE
 
-This release requires Across 5.0.0.
+This release requires Across 5.0.1.
 
 * styling of several pages has been updated
 * `@DebugWebController` now automatically includes `@ConditionalOnAcrossModule(DebugWebModule.NAME)`
